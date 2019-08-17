@@ -1,0 +1,30 @@
+# Server properties
+server:
+    port: 8080
+    servlet:
+        context-path: /statement-processor
+
+# Logging properties
+logging:
+    level:
+        nl.rabobank.customerstatementprocessor: debug
+    
+# Multipart properties
+spring:
+    servlet:
+        multipart:
+            enabled: true
+            file-size-threshold: 4KB
+            max-file-size: 256MB
+            max-request-size: 256MB
+
+# Application properties
+statement-processor:
+    security:
+        enabled: true
+        default-username: user
+        default-password: pass
+    validation:
+        append-parser-errors: true
+        parser-errors-key: PARSER
+        

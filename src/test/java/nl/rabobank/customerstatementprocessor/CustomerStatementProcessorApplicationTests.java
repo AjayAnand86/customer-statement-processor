@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class CustomerStatementProcessorApplicationTests {
 
   @Test
-  public void contextLoads() {
-  }
+  public void contextLoads() {}
 
 }
+
