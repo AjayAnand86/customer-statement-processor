@@ -57,6 +57,11 @@ To access the web page to use the service, navigate to the root (`/statement-pro
 Via the web page, file uploader could be used to validate files. If the security is enabled, authentication should be required on the browser.
 Then, `username: user` and `password: pass` should be entered.
 
+### Screenshot
+![API_UI](https://user-images.githubusercontent.com/35381348/63217657-85521300-c14a-11e9-8f0a-1649e0a4a101.PNG)
+
+![API_Result](https://user-images.githubusercontent.com/35381348/63217661-93a02f00-c14a-11e9-861f-d42090cd24c3.PNG)
+
 ## Via Postman
 Either PostMan or an equivalent applications can be used to use the service.
 
