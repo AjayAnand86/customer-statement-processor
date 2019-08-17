@@ -33,7 +33,7 @@ There are two validations:
 At the end of the processing, a report needs to be created which will display both the transaction reference and description of each of the failed records.
 
 ## How to use
-1.Clone the project Rabobank (Spring REST project).
+1.Clone the project (Spring REST project).
 https://github.com/AjayAnand86/customer-statement-processor.git
 
 2.Run maven clean install command to install dependency.
