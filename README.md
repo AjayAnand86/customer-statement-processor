@@ -34,8 +34,8 @@ At the end of the processing, a report needs to be created which will display bo
 
 ## How to use
 1.	Clone the project Rabobank (Spring REST project).
-```bash
 https://github.com/AjayAnand86/customer-statement-processor.git
+
 2.Run maven clean install command to install dependency.
 
 3.the server should be started as a Spring Boot project. The server can be started up via the following command:
@@ -97,8 +97,8 @@ The generated javadoc can be found in the folder /target/site/apidocs. Below is 
 
 ## Improvements
 
-1. Basic authentication: user/password are hardcoded
-2. Scope of improvement in validation framework, can be added validation for IBAN no.
+1. API monitoring can be added to monitor API service status
+2. Error handling can be improved. 
 3. Static code analysis
 4. Test case coverage to increase
 
