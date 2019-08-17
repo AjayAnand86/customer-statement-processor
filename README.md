@@ -77,10 +77,10 @@ http://localhost:8080/statement-processor/swagger-ui.html#
 ![swagger_ui](https://user-images.githubusercontent.com/35381348/63217363-8f254780-c145-11e9-8cd7-822409e22f61.PNG)
 
 ### XML File processing
-
+![swagger_xml_processing](https://user-images.githubusercontent.com/35381348/63217583-10caa480-c149-11e9-9eef-9e095f4652a3.PNG)
 
 ### CSV File processing
-
+![swagger_csv_processing](https://user-images.githubusercontent.com/35381348/63217591-250ea180-c149-11e9-868f-89f54ee75304.PNG)
 
 ## Testing
 The tests can be performed via following Maven command:
@@ -94,6 +94,8 @@ The JavaDoc is configured can be generated via the following command:
 
 The generated javadoc can be found in the folder /target/site/apidocs. Below is the screenshot for the same.
 
+### Screenshot
+![java_doc](https://user-images.githubusercontent.com/35381348/63217593-2fc93680-c149-11e9-92a1-0e49873372b8.PNG)
 
 ## Improvements
 
