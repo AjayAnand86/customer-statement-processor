@@ -33,7 +33,7 @@ There are two validations:
 At the end of the processing, a report needs to be created which will display both the transaction reference and description of each of the failed records.
 
 ## How to use
-1.	Clone the project Rabobank (Spring REST project).
+1.Clone the project Rabobank (Spring REST project).
 https://github.com/AjayAnand86/customer-statement-processor.git
 
 2.Run maven clean install command to install dependency.
@@ -101,8 +101,7 @@ The generated javadoc can be found in the folder /target/site/apidocs. Below is 
 
 1. API monitoring can be added to monitor API service status
 2. Error handling can be improved. 
-3. Static code analysis
-4. Test case coverage to increase
+3. Test case coverage to increase
 
 ## Contributor
 Ajay Anand
