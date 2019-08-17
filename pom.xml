@@ -120,6 +120,11 @@
 							<!-- Hide 'Tree' representation on the JavaDoc -->
 							<notree>true</notree>
 							
+							<!-- Destination directory for JavaDoc generates the HTML files. (Default: ${project.build.outputDirectory}/apidocs) -->
+							<outputDirectory>${project.build.outputDirectory}/static/javadoc</outputDirectory>
+
+							<!-- Destination directory for JavaDoc generates the HTML files. (Default: ${project.reporting.outputDirectory}/apidocs) -->
+							<reportOutputDirectory>${project.reporting.outputDirectory}/javadoc</reportOutputDirectory>
 						</configuration>
 					</execution>
 				</executions>
