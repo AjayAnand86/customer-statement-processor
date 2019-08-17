@@ -74,7 +74,7 @@ http://localhost:8080/statement-processor/swagger-ui.html#
 ## Screen shots
 
 ### Swagger-Ui: 
-
+![swagger_ui](https://user-images.githubusercontent.com/35381348/63217363-8f254780-c145-11e9-8cd7-822409e22f61.PNG)
 
 ### XML File processing
 
