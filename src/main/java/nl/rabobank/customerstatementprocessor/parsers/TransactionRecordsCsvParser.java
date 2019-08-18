@@ -76,10 +76,11 @@ public class TransactionRecordsCsvParser implements Parser<String, TransactionRe
 
     try {
       return this.parseRow(tokens);
+
     } catch (Exception e) {
       // If an error occurs during the conversion, or out-of-index, etc.
       // add the record to error list and return null, to continue execution of remaining records.
-      // logger.error("Unable to parse record: " + dataLine, e);
+      logger.error("Unable to parse record: " + dataLine);
       parserErrorList.add("Unable to parse record: " + dataLine);
       return null;
     }

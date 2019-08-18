@@ -41,9 +41,8 @@ public class GenericXmlParser<T> implements Parser<String, T> {
       // Maps the content to an object of type generic class.
       return new ParserResult<>(mapper.readValue(content, clazz));
     } catch (IOException e) {
-      // Exception handling.
       String errorMessage = "Failed to parse input for class: " + clazz.getSimpleName();
-      //logger.error(errorMessage, e);
+      logger.error(errorMessage);
       return new ParserResult<>(null, Collections.singletonList(errorMessage));
     }
   }
