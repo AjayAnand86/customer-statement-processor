@@ -43,10 +43,9 @@ public class TransactionRecordsValidator implements Validator<TransactionRecords
           if (transactionList.size() > 1) {
             // If there are more than 1 (one) transactions for a transaction, then it breaks the
             // constraint of 'Unique Reference Number'.
-            // Therefore, every transaction should be added to error list, without even validating.
-            transactionList
-                .forEach(o -> errorList.add(new ValidationError(Long.toString(transactionReference),
-                    ProjectConstants.UNIQUE_REFERENCE_VALIDATION_FAILED)));
+            // Therefore, transaction should be added to error list, without even validating.
+            errorList.add(new ValidationError(Long.toString(transactionReference),
+                ProjectConstants.UNIQUE_REFERENCE_VALIDATION_FAILED));
           } else {
             // Otherwise, meaning that there is exactly 1 (one) transaction for the reference
             // number,

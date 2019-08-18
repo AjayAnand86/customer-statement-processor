@@ -54,7 +54,7 @@ public class ValidationServiceTest {
 
     // Due to erroneous records.
     assertThat("Validation result should have exactly specific number of validation errors.",
-        validationResult.getValidationErrors().size(), is(6));
+        validationResult.getValidationErrors().size(), is(4));
 
 
     // Should contain transaction #112806 due to uniqueness-violation
@@ -167,7 +167,7 @@ public class ValidationServiceTest {
 
     // Due to erroneous records.
     assertThat("Validation result should have exactly specific number of validation errors.",
-        validationResult.getValidationErrors().size(), is(5));
+        validationResult.getValidationErrors().size(), is(4));
 
     assertThat("Validation errors should contain reference number.",
         validationResult.getValidationErrors(), hasItem(hasProperty("errorKey", is("147674"))));

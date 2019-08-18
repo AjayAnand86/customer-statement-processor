@@ -80,7 +80,7 @@ public class TransactionRecordsValidatorTest {
     invalidTransaction2.setTransactionReference(123456L);
 
     ValidationResult validationResult = this.validator.validate(transactionRecords);
-    this.assertInvalidTransactionRecordsValidationResults(validationResult, 2);
+    this.assertInvalidTransactionRecordsValidationResults(validationResult, 1);
     this.assertInvalidTransactionReferenceShouldExistInValidationResults(invalidTransaction1,
         validationResult);
     this.assertInvalidTransactionReferenceShouldExistInValidationResults(invalidTransaction2,
