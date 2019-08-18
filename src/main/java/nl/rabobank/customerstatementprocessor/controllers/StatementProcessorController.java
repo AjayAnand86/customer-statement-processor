@@ -49,7 +49,7 @@ public class StatementProcessorController {
    */
   @PostMapping("/validateFile")
   public ResponseEntity<ValidationResult> validateStatementFile(
-      @RequestParam("file") final MultipartFile statementFile) throws Exception {
+      @RequestParam("file") final MultipartFile statementFile) throws IOException {
     if ((statementFile == null) || statementFile.isEmpty()) {
       throw new IllegalArgumentException("File is empty");
     }
@@ -58,7 +58,7 @@ public class StatementProcessorController {
 
     // Checks if the file is parsable or not.
     if (!parserService.isParsable(contentType)) {
-      throw new UnmarshalException("Unmarchal exception, kindly check the file format");
+      throw new IOException("Unmarchal exception, kindly check the file format");
     }
 
     // Read the uploaded file content onto string.

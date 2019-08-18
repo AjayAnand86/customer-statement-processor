@@ -26,6 +26,7 @@ public class TransactionRecordsCsvParser implements Parser<String, TransactionRe
    */
   @Override
   public ParserResult<TransactionRecords> parse(final String content) {
+
     // Initializes error list.
     List<String> parserErrorList = new ArrayList<>();
 
@@ -51,6 +52,7 @@ public class TransactionRecordsCsvParser implements Parser<String, TransactionRe
 
     // Returns the parser result.
     return new ParserResult<>(transactionRecords, parserErrorList);
+
   }
 
   private Transaction parseRow(final String[] dataTokens) {
@@ -77,7 +79,7 @@ public class TransactionRecordsCsvParser implements Parser<String, TransactionRe
     } catch (Exception e) {
       // If an error occurs during the conversion, or out-of-index, etc.
       // add the record to error list and return null, to continue execution of remaining records.
-      logger.error("Unable to parse record: " + dataLine, e);
+      // logger.error("Unable to parse record: " + dataLine, e);
       parserErrorList.add("Unable to parse record: " + dataLine);
       return null;
     }

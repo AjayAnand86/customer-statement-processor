@@ -43,7 +43,7 @@ public class GenericXmlParser<T> implements Parser<String, T> {
     } catch (IOException e) {
       // Exception handling.
       String errorMessage = "Failed to parse input for class: " + clazz.getSimpleName();
-      logger.error(errorMessage, e);
+      //logger.error(errorMessage, e);
       return new ParserResult<>(null, Collections.singletonList(errorMessage));
     }
   }

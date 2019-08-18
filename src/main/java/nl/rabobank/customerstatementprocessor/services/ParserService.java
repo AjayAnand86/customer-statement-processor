@@ -73,8 +73,7 @@ public class ParserService {
    *
    * @return parser result for the file content.
    */
-  public ParserResult<TransactionRecords> parseFile(final String contentType, final String content)
-      throws IOException {
+  public ParserResult<TransactionRecords> parseFile(final String contentType, final String content) {
     ParserResult<TransactionRecords> transactionRecordsParseResult;
 
     // Get the associated parser for the specified file.
