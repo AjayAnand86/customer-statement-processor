@@ -37,19 +37,21 @@ public class TransactionRecordsValidator implements Validator<TransactionRecords
     // If transactions is not null; then loops through the transactions. Then
     // 1. Groups all the transactions by the reference.
     // 2. Performs the operation for each transactions grouped by the transaction reference.
-    Optional.ofNullable(transactionRecords.getTransactions()).orElse(Collections.emptyList())
-        .stream().collect(Collectors.groupingBy(Transaction::getTransactionReference))
+    Optional.ofNullable(transactionRecords.getTransactions())
+    .orElse(Collections.emptyList()).stream()
+        .collect(Collectors.groupingBy(Transaction::getTransactionReference))
         .forEach((transactionReference, transactionList) -> {
           if (transactionList.size() > 1) {
             // If there are more than 1 (one) transactions for a transaction, then it breaks the
             // constraint of 'Unique Reference Number'.
             // Therefore, transaction should be added to error list, without even validating.
+            
             errorList.add(new ValidationError(Long.toString(transactionReference),
                 ValidationConstants.UNIQUE_REFERENCE_VALIDATION_FAILED));
           } else {
-            // Otherwise, meaning that there is exactly 1 (one) transaction for the reference
-            // number,
+            // Otherwise, meaning that there is exactly 1 (one) transaction for the reference number
             // Append and validation error for the specific transaction.
+            
             errorList.addAll(
                 this.transactionValidator.validate(transactionList.get(0)).getValidationErrors());
           }

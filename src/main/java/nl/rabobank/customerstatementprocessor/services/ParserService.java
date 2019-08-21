@@ -1,13 +1,11 @@
 package nl.rabobank.customerstatementprocessor.services;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 import nl.rabobank.customerstatementprocessor.model.TransactionRecords;
 import nl.rabobank.customerstatementprocessor.parsers.Parser;
 import nl.rabobank.customerstatementprocessor.parsers.ParserResult;
@@ -19,8 +17,8 @@ import nl.rabobank.customerstatementprocessor.properties.ValidationConstants;
  * Parser service to perform parsing in the files uploaded.
  */
 @Service
+@Slf4j
 public class ParserService {
-  private static final Logger logger = LoggerFactory.getLogger(ParserService.class);
 
   private final TransactionRecordsXmlParser xmlParser;
   private final TransactionRecordsCsvParser csvParser;
@@ -92,7 +90,7 @@ public class ParserService {
     } catch (Exception e) {
       // Exception occurs when parsing fails.
       String errorMessage = "Unable to parse the uploaded file content.";
-      logger.error(errorMessage, e);
+      log.error(errorMessage, e);
       transactionRecordsParseResult =
           new ParserResult<>(null, Collections.singletonList(errorMessage));
     }

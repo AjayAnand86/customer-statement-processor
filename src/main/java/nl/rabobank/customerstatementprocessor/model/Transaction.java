@@ -22,23 +22,25 @@ public class Transaction {
   @JacksonXmlProperty(localName = "reference", isAttribute = true)
   @CsvBindByPosition(position = 0)
   private long transactionReference;
+  
   @JacksonXmlProperty(localName = "accountNumber")
   @CsvBindByPosition(position = 1)
   private String accountNumber;
+  
   @JacksonXmlProperty(localName = "description")
   @CsvBindByPosition(position = 2)
   private String description;
+  
   @JacksonXmlProperty(localName = "startBalance")
   @CsvBindByPosition(position = 3)
-  //@CsvNumber(value = "#0.00")
   private BigDecimal startBalance;
+  
   @JacksonXmlProperty(localName = "mutation")
   @CsvBindByPosition(position = 4)
- // @CsvNumber(value = "#0.00")
   private BigDecimal mutation;
+  
   @JacksonXmlProperty(localName = "endBalance")
   @CsvBindByPosition(position = 5)
-  //@CsvNumber(value = "#0.00")
   private BigDecimal endBalance;
 }
 

@@ -27,9 +27,8 @@ public class TransactionRecordsXmlParser implements Parser {
       // Maps the content to an object of type generic class.
       return new ParserResult<>(new XmlMapper().readValue(content, TransactionRecords.class));
     } catch (IOException e) {
-      String errorMessage = "Failed to parse input for class: " + TransactionRecords.class.getName();
-      log.error(errorMessage);
-      return new ParserResult<>(null, Collections.singletonList(errorMessage));
+      log.error("Failed to parse input xml file");
+      return new ParserResult<>(null, Collections.singletonList("Failed to parse input xml file"));
     }
   }
 }

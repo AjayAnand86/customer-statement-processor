@@ -3,7 +3,6 @@ package nl.rabobank.customerstatementprocessor.factories;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;

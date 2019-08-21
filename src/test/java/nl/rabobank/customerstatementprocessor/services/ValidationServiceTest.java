@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import junit.framework.Assert;
 import nl.rabobank.customerstatementprocessor.config.TestConfiguration;
 import nl.rabobank.customerstatementprocessor.factories.TestObjectFactory;
 import nl.rabobank.customerstatementprocessor.model.TransactionRecords;

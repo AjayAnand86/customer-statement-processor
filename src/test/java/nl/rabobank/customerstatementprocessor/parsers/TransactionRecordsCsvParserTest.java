@@ -21,7 +21,7 @@ public class TransactionRecordsCsvParserTest {
   }
 
   @Test
-  public void whenTransactionFileIsValidThenParserResultShouldHaveNoErrors() throws Exception {
+  public void whenTransactionFileIsValidThenParserResultShouldHaveNoErrors() throws IOException {
     // Given all fields are valid
     InputStream fileContent = TestObjectFactory.getValidCsvFileContent();
 
@@ -34,7 +34,7 @@ public class TransactionRecordsCsvParserTest {
 
   @Test
   public void whenTransactionFileHasEmptyRecordsThenParserResultShouldHaveNoErrors()
-      throws Exception {
+      throws IOException {
     // Given all fields are valid
     InputStream fileContent = TestObjectFactory.getEmptyCsvFileContent();
 
