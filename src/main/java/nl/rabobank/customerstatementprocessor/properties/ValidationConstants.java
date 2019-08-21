@@ -3,7 +3,7 @@ package nl.rabobank.customerstatementprocessor.properties;
 /**
  * Project constants
  */
-public final class ProjectConstants {
+public final class ValidationConstants {
   public static final String MIME_TYPE_APPLICATION_XML = "application/xml";
   public static final String MIME_TYPE_TEXT_XML = "text/xml";
   public static final String MIME_TYPE_TEXT_CSV = "text/csv";
@@ -15,5 +15,5 @@ public final class ProjectConstants {
   public static final String INVALID_TRANSACTION_REFERENCE = "Invalid Transaction Reference";
   public static final String INVALID_MUTATION = "Invalid Mutation";
 
-  private ProjectConstants() {}
+  private ValidationConstants() {}
 }

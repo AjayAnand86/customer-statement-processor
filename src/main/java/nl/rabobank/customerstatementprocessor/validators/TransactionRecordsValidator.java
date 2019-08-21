@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 import nl.rabobank.customerstatementprocessor.model.Transaction;
 import nl.rabobank.customerstatementprocessor.model.TransactionRecords;
-import nl.rabobank.customerstatementprocessor.properties.ProjectConstants;
+import nl.rabobank.customerstatementprocessor.properties.ValidationConstants;
 
 /**
  * Validator for transaction report.
@@ -45,7 +45,7 @@ public class TransactionRecordsValidator implements Validator<TransactionRecords
             // constraint of 'Unique Reference Number'.
             // Therefore, transaction should be added to error list, without even validating.
             errorList.add(new ValidationError(Long.toString(transactionReference),
-                ProjectConstants.UNIQUE_REFERENCE_VALIDATION_FAILED));
+                ValidationConstants.UNIQUE_REFERENCE_VALIDATION_FAILED));
           } else {
             // Otherwise, meaning that there is exactly 1 (one) transaction for the reference
             // number,

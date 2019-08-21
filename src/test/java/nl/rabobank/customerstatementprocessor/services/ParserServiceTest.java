@@ -4,8 +4,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import java.io.IOException;
+import java.io.InputStream;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import nl.rabobank.customerstatementprocessor.config.TestConfiguration;
 import nl.rabobank.customerstatementprocessor.factories.TestObjectFactory;
 import nl.rabobank.customerstatementprocessor.model.TransactionRecords;
 import nl.rabobank.customerstatementprocessor.parsers.ParserResult;
-import nl.rabobank.customerstatementprocessor.properties.ProjectConstants;
+import nl.rabobank.customerstatementprocessor.properties.ValidationConstants;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestConfiguration.class})
@@ -28,10 +30,10 @@ public class ParserServiceTest {
   @Test
   public void whenCsvTransactionFileIsValidThenParserResultShouldHaveNoErrors() throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getValidCsvFileContent();
+    InputStream fileContent = TestObjectFactory.getValidCsvFileContent();
 
     ParserResult<TransactionRecords> parserResult =
-        this.parserService.parseFile(ProjectConstants.MIME_TYPE_TEXT_CSV, fileContent);
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_TEXT_CSV, fileContent);
 
     this.assertValidParserResults(parserResult);
 
@@ -40,21 +42,18 @@ public class ParserServiceTest {
         is(not(empty())));
 
     // Due to erroneous records.
-    assertThat("Error list should not be empty.", parserResult.getErrors(), is(not(empty())));
+    assertThat("Error list should empty.", parserResult.getErrors(), is((empty())));
 
-    // Due to erroneous records.
-    assertThat("Error list should have exactly specific number of items.",
-        parserResult.getErrors().size(), is(2));
   }
 
   @Test
   public void whenCsvTransactionFileHasEmptyRecordsThenParserResultShouldHaveNoErrors()
       throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getEmptyCsvFileContent();
+    InputStream fileContent = TestObjectFactory.getEmptyCsvFileContent();
 
     ParserResult<TransactionRecords> parserResult =
-        this.parserService.parseFile(ProjectConstants.MIME_TYPE_TEXT_CSV, fileContent);
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_TEXT_CSV, fileContent);
 
     this.assertValidParserResults(parserResult);
     assertThat("Transaction list should be empty.", parserResult.getResult().getTransactions(),
@@ -64,10 +63,10 @@ public class ParserServiceTest {
   @Test
   public void whenXmlTransactionFileIsValidThenParserResultShouldHaveNoErrors() throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getValidXmlFileContent();
+    InputStream fileContent = TestObjectFactory.getValidXmlFileContent();
 
     ParserResult<TransactionRecords> parserResult =
-        this.parserService.parseFile(ProjectConstants.MIME_TYPE_APPLICATION_XML, fileContent);
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_APPLICATION_XML, fileContent);
 
     this.assertValidParserResults(parserResult);
     assertThat("Transaction list should not be empty.", parserResult.getResult().getTransactions(),
@@ -78,24 +77,23 @@ public class ParserServiceTest {
   public void whenXmlTransactionFileHasEmptyRecordsThenParserResultShouldHaveNoErrors()
       throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getEmptyXmlFileContent();
+    InputStream fileContent = TestObjectFactory.getEmptyXmlFileContent();
 
     ParserResult<TransactionRecords> parserResult =
-        this.parserService.parseFile(ProjectConstants.MIME_TYPE_APPLICATION_XML, fileContent);
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_APPLICATION_XML, fileContent);
 
-    this.assertValidParserResults(parserResult);
-    assertThat("Transaction list should be empty.", parserResult.getResult().getTransactions(),
-        is(not(empty())));
+    assertNotNull("Parser result should not be null.",parserResult);
+    assertThat("Parser errors should be not be empty.", parserResult.getErrors(), is(not(empty())));
   }
 
   @Test
   public void whenXmlTransactionFileIsInvalidThenParserResultShouldHaveNoErrors()
       throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getUnparsableXmlFileContent();
+    InputStream fileContent = TestObjectFactory.getUnparsableXmlFileContent();
 
     ParserResult<TransactionRecords> parserResult =
-        this.parserService.parseFile(ProjectConstants.MIME_TYPE_APPLICATION_XML, fileContent);
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_APPLICATION_XML, fileContent);
 
     this.assertInvalidParserResults(parserResult, 1);
   }

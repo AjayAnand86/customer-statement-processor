@@ -17,7 +17,7 @@ import nl.rabobank.customerstatementprocessor.factories.YamlPropertySourceFactor
     value = ResourceUtils.CLASSPATH_URL_PREFIX + "application.yml")
 @Getter
 @Setter
-public class ProjectProperties {
+public class SecurityProperties {
   private Security security;
   private Validation validation;
 

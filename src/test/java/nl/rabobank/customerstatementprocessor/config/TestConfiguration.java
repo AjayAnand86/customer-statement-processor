@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import nl.rabobank.customerstatementprocessor.parsers.TransactionRecordsCsvParser;
 import nl.rabobank.customerstatementprocessor.parsers.TransactionRecordsXmlParser;
-import nl.rabobank.customerstatementprocessor.properties.ProjectProperties;
+import nl.rabobank.customerstatementprocessor.properties.SecurityProperties;
 import nl.rabobank.customerstatementprocessor.services.ParserService;
 import nl.rabobank.customerstatementprocessor.services.ValidationService;
 import nl.rabobank.customerstatementprocessor.validators.TransactionRecordsValidator;
@@ -25,7 +25,7 @@ public class TestConfiguration {
 
   @Bean(name = "testValidationService")
   public ValidationService validationService(final TransactionRecordsValidator validator,
-      final ProjectProperties projectProperties) {
-    return new ValidationService(validator, projectProperties);
+      final SecurityProperties securityProperties) {
+    return new ValidationService(validator, securityProperties);
   }
 }

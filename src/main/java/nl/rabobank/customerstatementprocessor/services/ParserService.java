@@ -1,6 +1,7 @@
 package nl.rabobank.customerstatementprocessor.services;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -12,7 +13,7 @@ import nl.rabobank.customerstatementprocessor.parsers.Parser;
 import nl.rabobank.customerstatementprocessor.parsers.ParserResult;
 import nl.rabobank.customerstatementprocessor.parsers.TransactionRecordsCsvParser;
 import nl.rabobank.customerstatementprocessor.parsers.TransactionRecordsXmlParser;
-import nl.rabobank.customerstatementprocessor.properties.ProjectConstants;
+import nl.rabobank.customerstatementprocessor.properties.ValidationConstants;
 
 /**
  * Parser service to perform parsing in the files uploaded.
@@ -38,16 +39,16 @@ public class ParserService {
    *
    * @return associated parser for the specified file.
    */
-  public Optional<Parser<String, TransactionRecords>> getAssociatedParser(
+  public Optional<Parser> getAssociatedParser(
       final String contentType) {
     // If the type is not XML or CSV, returns null.
     switch (contentType) {
-      case ProjectConstants.MIME_TYPE_APPLICATION_XML:
-      case ProjectConstants.MIME_TYPE_TEXT_XML:
+      case ValidationConstants.MIME_TYPE_APPLICATION_XML:
+      case ValidationConstants.MIME_TYPE_TEXT_XML:
         return Optional.of(xmlParser);
-      case ProjectConstants.MIME_TYPE_TEXT_CSV:
+      case ValidationConstants.MIME_TYPE_TEXT_CSV:
         return Optional.of(csvParser);
-      case ProjectConstants.MIME_TYPE_TEXT_CSV_EXCEL:
+      case ValidationConstants.MIME_TYPE_TEXT_CSV_EXCEL:
         return Optional.of(csvParser);
       default:
         return Optional.empty();
@@ -73,11 +74,11 @@ public class ParserService {
    *
    * @return parser result for the file content.
    */
-  public ParserResult<TransactionRecords> parseFile(final String contentType, final String content) {
+  public ParserResult<TransactionRecords> parseFile(final String contentType, final InputStream content) {
     ParserResult<TransactionRecords> transactionRecordsParseResult;
 
     // Get the associated parser for the specified file.
-    Optional<Parser<String, TransactionRecords>> parserOpt = this.getAssociatedParser(contentType);
+    Optional<Parser> parserOpt = this.getAssociatedParser(contentType);
 
     try {
       if (parserOpt.isPresent()) {

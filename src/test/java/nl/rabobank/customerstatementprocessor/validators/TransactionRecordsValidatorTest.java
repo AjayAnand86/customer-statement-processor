@@ -15,7 +15,7 @@ import org.junit.Test;
 import nl.rabobank.customerstatementprocessor.factories.TestObjectFactory;
 import nl.rabobank.customerstatementprocessor.model.Transaction;
 import nl.rabobank.customerstatementprocessor.model.TransactionRecords;
-import nl.rabobank.customerstatementprocessor.properties.ProjectConstants;
+import nl.rabobank.customerstatementprocessor.properties.ValidationConstants;
 
 public class TransactionRecordsValidatorTest {
   private TransactionRecordsValidator validator;
@@ -113,7 +113,7 @@ public class TransactionRecordsValidatorTest {
         hasItem(hasProperty("errorKey", is(Long.toString(transaction.getTransactionReference())))));
     assertThat("Validation errors should contain description.",
         validationResult.getValidationErrors(), hasItem(hasProperty("errorDescription",
-            is(ProjectConstants.UNIQUE_REFERENCE_VALIDATION_FAILED))));
+            is(ValidationConstants.UNIQUE_REFERENCE_VALIDATION_FAILED))));
 
   }
 
@@ -125,7 +125,7 @@ public class TransactionRecordsValidatorTest {
         hasItem(hasProperty("errorKey", is(Long.toString(transaction.getTransactionReference())))));
     assertThat("Validation errors should contain description.",
         validationResult.getValidationErrors(),
-        hasItem(hasProperty("errorDescription", is(ProjectConstants.IBAN_VALIDATION_FAILED))));
+        hasItem(hasProperty("errorDescription", is(ValidationConstants.IBAN_VALIDATION_FAILED))));
 
   }
   
@@ -138,7 +138,7 @@ public class TransactionRecordsValidatorTest {
     assertThat("Validation errors should contain description.",
         validationResult.getValidationErrors(),
         hasItem(
-            hasProperty("errorDescription", is(ProjectConstants.END_BALANCE_VALIDATION_FAILED))));
+            hasProperty("errorDescription", is(ValidationConstants.END_BALANCE_VALIDATION_FAILED))));
 
   }
 }

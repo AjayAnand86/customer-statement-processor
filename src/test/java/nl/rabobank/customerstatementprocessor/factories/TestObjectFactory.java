@@ -1,10 +1,12 @@
 package nl.rabobank.customerstatementprocessor.factories;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.io.FileUtils;
 import org.springframework.util.ResourceUtils;
 import nl.rabobank.customerstatementprocessor.model.Transaction;
 import nl.rabobank.customerstatementprocessor.model.TransactionRecords;
@@ -49,33 +51,32 @@ public final class TestObjectFactory {
     return transactionRecords;
   }
 
-  public static String getUnparsableXmlFileContent() throws IOException {
-    return String.join(System.lineSeparator(), Files
-        .readAllLines(ResourceUtils.getFile("classpath:data/records_unparsable.xml").toPath()));
+  public static InputStream getUnparsableXmlFileContent() throws IOException {
+    return FileUtils.openInputStream(ResourceUtils.getFile("src/test/resources/data/records_unparsable.xml"));
   }
 
-  public static String getEmptyXmlFileContent() throws IOException {
-    return String.join(System.lineSeparator(),
-        Files.readAllLines(ResourceUtils.getFile("classpath:data/records_empty.xml").toPath()));
+  public static InputStream getEmptyXmlFileContent() throws IOException {
+    return FileUtils.openInputStream(ResourceUtils.getFile("src/test/resources/data/records_empty.xml"));
   }
 
-  public static String getValidXmlFileContent() throws IOException {
-    return String.join(System.lineSeparator(),
-        Files.readAllLines(ResourceUtils.getFile("classpath:data/records_valid.xml").toPath()));
+  public static InputStream getValidXmlFileContent() throws IOException {
+    return FileUtils.openInputStream(ResourceUtils.getFile("src/test/resources/data/records_valid.xml"));
   }
 
-  public static String getValidXmlFileContentWithInvalidRecords() throws IOException {
-    return String.join(System.lineSeparator(), Files
-        .readAllLines(ResourceUtils.getFile("classpath:data/records_with_invalid.xml").toPath()));
+  public static InputStream getValidXmlFileContentWithInvalidRecords() throws IOException {
+    return FileUtils.openInputStream(ResourceUtils.getFile("src/test/resources/data/records_invalid.xml"));
   }
 
-  public static String getEmptyCsvFileContent() throws IOException {
-    return String.join(System.lineSeparator(),
-        Files.readAllLines(ResourceUtils.getFile("classpath:data/records_empty.csv").toPath()));
+  public static InputStream getEmptyCsvFileContent() throws IOException {
+    return FileUtils.openInputStream(ResourceUtils.getFile("src/test/resources/data/records_empty.csv"));
   }
 
-  public static String getValidCsvFileContent() throws IOException {
-    return String.join(System.lineSeparator(),
-        Files.readAllLines(ResourceUtils.getFile("classpath:data/records_invalid.csv").toPath()));
+  public static InputStream getValidCsvFileContent() throws IOException {
+    return FileUtils.openInputStream(ResourceUtils.getFile("src/test/resources/data/records_valid.csv"));
+     
+  }
+  public static InputStream getInValidCsvFileContent() throws IOException {
+    return FileUtils.openInputStream(ResourceUtils.getFile("src/test/resources/data/records_invalid.csv"));
+     
   }
 }

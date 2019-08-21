@@ -9,17 +9,19 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
+import java.io.InputStream;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import junit.framework.Assert;
 import nl.rabobank.customerstatementprocessor.config.TestConfiguration;
 import nl.rabobank.customerstatementprocessor.factories.TestObjectFactory;
 import nl.rabobank.customerstatementprocessor.model.TransactionRecords;
 import nl.rabobank.customerstatementprocessor.parsers.ParserResult;
-import nl.rabobank.customerstatementprocessor.properties.ProjectConstants;
+import nl.rabobank.customerstatementprocessor.properties.ValidationConstants;
 import nl.rabobank.customerstatementprocessor.validators.ValidationResult;
 
 
@@ -38,11 +40,33 @@ public class ValidationServiceTest {
   public void whenCsvTransactionFileIsValidThenValidationResultShouldHaveNoErrors()
       throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getValidCsvFileContent();
+    InputStream fileContent = TestObjectFactory.getValidCsvFileContent();
 
     // Parse file content.
     ParserResult<TransactionRecords> parserResult =
-        this.parserService.parseFile(ProjectConstants.MIME_TYPE_TEXT_CSV, fileContent);
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_TEXT_CSV, fileContent);
+
+    // Validate file content.
+    ValidationResult validationResult = validationService.validate(parserResult);
+
+    this.assertValidationResults(validationResult);
+
+    assertTrue("Validation result should not have invalid records.",
+        validationResult.isValidated());
+    assertThat("Validation result should not have invalid records.",
+        validationResult.getValidationErrors(), is(empty()));
+
+  }
+  
+  @Test
+  public void whenCsvTransactionFileIsInValidThenValidationResultShouldHaveNoErrors()
+      throws IOException {
+    // Given all fields are valid
+    InputStream fileContent = TestObjectFactory.getInValidCsvFileContent();
+
+    // Parse file content.
+    ParserResult<TransactionRecords> parserResult =
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_TEXT_CSV, fileContent);
 
     // Validate file content.
     ValidationResult validationResult = validationService.validate(parserResult);
@@ -63,11 +87,7 @@ public class ValidationServiceTest {
 
     assertThat("Validation errors should contain description.",
         validationResult.getValidationErrors(), hasItem(hasProperty("errorDescription",
-            is(ProjectConstants.UNIQUE_REFERENCE_VALIDATION_FAILED))));
-
-    // Should contain parser error
-    assertThat("Validation errors should contain reference number.",
-        validationResult.getValidationErrors(), hasItem(hasProperty("errorKey", is("PARSER"))));
+            is(ValidationConstants.UNIQUE_REFERENCE_VALIDATION_FAILED))));
 
   }
 
@@ -75,10 +95,10 @@ public class ValidationServiceTest {
   public void whenCsvTransactionFileHasEmptyRecordsThenValidationResultShouldHaveNoErrors()
       throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getEmptyCsvFileContent();
+    InputStream fileContent = TestObjectFactory.getEmptyCsvFileContent();
 
     ParserResult<TransactionRecords> parserResult =
-        this.parserService.parseFile(ProjectConstants.MIME_TYPE_TEXT_CSV, fileContent);
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_TEXT_CSV, fileContent);
 
     // Validate file content.
     ValidationResult validationResult = validationService.validate(parserResult);
@@ -95,10 +115,10 @@ public class ValidationServiceTest {
   public void whenXmlTransactionFileIsValidThenValidationResultShouldHaveNoErrors()
       throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getValidXmlFileContent();
+    InputStream fileContent = TestObjectFactory.getValidXmlFileContent();
 
     ParserResult<TransactionRecords> parserResult =
-        this.parserService.parseFile(ProjectConstants.MIME_TYPE_APPLICATION_XML, fileContent);
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_APPLICATION_XML, fileContent);
 
     // Validate file content.
     ValidationResult validationResult = validationService.validate(parserResult);
@@ -115,30 +135,30 @@ public class ValidationServiceTest {
   public void whenXmlTransactionFileHasEmptyRecordsThenValidationResultShouldHaveNoErrors()
       throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getEmptyXmlFileContent();
+    InputStream fileContent = TestObjectFactory.getEmptyXmlFileContent();
 
     ParserResult<TransactionRecords> parserResult =
-        this.parserService.parseFile(ProjectConstants.MIME_TYPE_APPLICATION_XML, fileContent);
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_APPLICATION_XML, fileContent);
 
     // Validate file content.
     ValidationResult validationResult = validationService.validate(parserResult);
 
     this.assertValidationResults(validationResult);
 
-    assertTrue("Validation result should not have invalid records.",
+    assertFalse("Validation result should not have invalid records.",
         validationResult.isValidated());
-    assertThat("Validation result should not have invalid records.",
-        validationResult.getValidationErrors(), is(empty()));
+    assertThat("Validation errors should contain reference number.",
+        validationResult.getValidationErrors(), hasItem(hasProperty("errorKey", is("PARSER"))));
   }
 
   @Test
   public void whenXmlTransactionFileIsInvalidThenValidationResultShouldHaveNoErrors()
       throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getUnparsableXmlFileContent();
+    InputStream fileContent = TestObjectFactory.getUnparsableXmlFileContent();
 
     ParserResult<TransactionRecords> parserResult =
-        this.parserService.parseFile(ProjectConstants.MIME_TYPE_APPLICATION_XML, fileContent);
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_APPLICATION_XML, fileContent);
 
     // Validate file content.
     ValidationResult validationResult = validationService.validate(parserResult);
@@ -150,11 +170,11 @@ public class ValidationServiceTest {
   public void whenXmlTransactionFileIsValidWithInvalidRecordsThenValidationResultShouldHaveNoErrors()
       throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getValidXmlFileContentWithInvalidRecords();
+    InputStream fileContent = TestObjectFactory.getValidXmlFileContentWithInvalidRecords();
 
     // Parse file content.
     ParserResult<TransactionRecords> parserResult =
-        this.parserService.parseFile(ProjectConstants.MIME_TYPE_APPLICATION_XML, fileContent);
+        this.parserService.parseFile(ValidationConstants.MIME_TYPE_APPLICATION_XML, fileContent);
 
     // Validate file content.
     ValidationResult validationResult = validationService.validate(parserResult);
@@ -174,7 +194,7 @@ public class ValidationServiceTest {
 
     assertThat("Validation errors should contain description.",
         validationResult.getValidationErrors(), hasItem(hasProperty("errorDescription",
-            is(ProjectConstants.UNIQUE_REFERENCE_VALIDATION_FAILED))));
+            is(ValidationConstants.UNIQUE_REFERENCE_VALIDATION_FAILED))));
 
   }
 

@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import java.io.IOException;
+import java.io.InputStream;
 import org.junit.Before;
 import org.junit.Test;
 import nl.rabobank.customerstatementprocessor.factories.TestObjectFactory;
@@ -22,7 +23,7 @@ public class TransactionRecordsXmlParserTest {
   @Test
   public void whenTransactionFileIsValidThenParserResultShouldHaveNoErrors() throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getValidXmlFileContent();
+    InputStream fileContent = TestObjectFactory.getValidXmlFileContent();
 
     ParserResult<TransactionRecords> parserResult = this.parser.parse(fileContent);
 
@@ -33,17 +34,18 @@ public class TransactionRecordsXmlParserTest {
   public void whenTransactionFileHasEmptyRecordsThenParserResultShouldHaveNoErrors()
       throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getEmptyXmlFileContent();
+    InputStream fileContent = TestObjectFactory.getEmptyXmlFileContent();
 
     ParserResult<TransactionRecords> parserResult = this.parser.parse(fileContent);
 
-    this.assertValidParserResults(parserResult);
+    assertNotNull("Parser result should not be null.",parserResult);
+    assertThat("Parser errors should be not be empty.", parserResult.getErrors(), is(not(empty())));
   }
 
   @Test
   public void whenTransactionFileIsInvalidThenParserResultShouldHaveNoErrors() throws IOException {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getUnparsableXmlFileContent();
+    InputStream fileContent = TestObjectFactory.getUnparsableXmlFileContent();
 
     ParserResult<TransactionRecords> parserResult = this.parser.parse(fileContent);
 

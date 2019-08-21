@@ -1,18 +1,19 @@
 package nl.rabobank.customerstatementprocessor.parsers;
 
+import java.io.InputStream;
+import nl.rabobank.customerstatementprocessor.model.TransactionRecords;
+
 /**
- * Parser interface to parse of type <code>T</code> into <code>U</code>.
+ * Parser interface to parse input files.
  * 
- * @param <T> Source type.
- * @param <U> Target type.
  */
 @FunctionalInterface
-public interface Parser<T, U> {
+public interface Parser {
   /**
-   * Function to be performed to parse of type <code>T</code> into <code>U</code>.
+   * Function to be performed to parse of type String into TransactionRecords.
    * 
    * @param content content to be parsed.
    * @return parser result.
    */
-  ParserResult<U> parse(T content);
+  ParserResult<TransactionRecords> parse(InputStream content);
 }

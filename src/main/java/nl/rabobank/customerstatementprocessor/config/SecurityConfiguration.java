@@ -1,7 +1,5 @@
 package nl.rabobank.customerstatementprocessor.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,23 +10,25 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-import nl.rabobank.customerstatementprocessor.properties.ProjectProperties;
-import nl.rabobank.customerstatementprocessor.properties.ProjectProperties.Security;
+import lombok.extern.slf4j.Slf4j;
+import nl.rabobank.customerstatementprocessor.properties.SecurityProperties;
+import nl.rabobank.customerstatementprocessor.properties.SecurityProperties.Security;
 
 /**
  * Security configuration for the application.
  */
 @Configuration
 @EnableWebSecurity
+@Slf4j
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-  private static final Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
+  
 
   private final RequestMatcher permitAllRequestMatcher;
   private final Security securityProperties;
   private final PasswordEncoder passwordEncoder;
 
   @Autowired
-  public SecurityConfiguration(final ProjectProperties projectProperties,
+  public SecurityConfiguration(final SecurityProperties projectProperties,
       final PasswordEncoder passwordEncoder) {
     this.securityProperties = projectProperties.getSecurity();
     this.passwordEncoder = passwordEncoder;
@@ -78,7 +78,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// Disabling CSRF support for this application.
 		httpSecurity.csrf().disable();
 
-        logger.debug("Security.enabled: {}", securityProperties.isEnabled());
+        log.debug("Security.enabled: {}", securityProperties.isEnabled());
         
 		if (!securityProperties.isEnabled()) {
             // If the security is disabled, permit all requests.

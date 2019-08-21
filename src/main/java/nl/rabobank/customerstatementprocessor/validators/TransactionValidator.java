@@ -5,7 +5,7 @@ import java.util.Collections;
 import javax.validation.constraints.NotNull;
 import org.apache.commons.validator.routines.IBANValidator;
 import nl.rabobank.customerstatementprocessor.model.Transaction;
-import nl.rabobank.customerstatementprocessor.properties.ProjectConstants;
+import nl.rabobank.customerstatementprocessor.properties.ValidationConstants;
 
 /**
  * Validator for transaction class objects.
@@ -23,21 +23,21 @@ public class TransactionValidator implements Validator<Transaction> {
     if (!validateEndBalance(transaction)) {
       return new ValidationResult(
           new ValidationError(Long.toString(transaction.getTransactionReference()),
-              ProjectConstants.END_BALANCE_VALIDATION_FAILED));
+              ValidationConstants.END_BALANCE_VALIDATION_FAILED));
     }
     if (!validateAccountNumber(transaction)) {
       return new ValidationResult(
           new ValidationError(Long.toString(transaction.getTransactionReference()),
-              ProjectConstants.IBAN_VALIDATION_FAILED));
+              ValidationConstants.IBAN_VALIDATION_FAILED));
     }
     if (!validateTransactionReference(transaction)) {
       return new ValidationResult(
           new ValidationError(Long.toString(transaction.getTransactionReference()),
-              ProjectConstants.INVALID_TRANSACTION_REFERENCE));
+              ValidationConstants.INVALID_TRANSACTION_REFERENCE));
     }
     if (!validateMutation(transaction)) {
       return new ValidationResult(new ValidationError(
-          Long.toString(transaction.getTransactionReference()), ProjectConstants.INVALID_MUTATION));
+          Long.toString(transaction.getTransactionReference()), ValidationConstants.INVALID_MUTATION));
     }
 
     return new ValidationResult(Collections.emptyList());

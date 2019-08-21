@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import nl.rabobank.customerstatementprocessor.factories.TestObjectFactory;
 import nl.rabobank.customerstatementprocessor.model.Transaction;
-import nl.rabobank.customerstatementprocessor.properties.ProjectConstants;
+import nl.rabobank.customerstatementprocessor.properties.ValidationConstants;
 
 public class TransactionValidatorTest {
   private TransactionValidator validator;
@@ -110,7 +110,7 @@ public class TransactionValidatorTest {
         hasItem(hasProperty("errorKey", is(Long.toString(transaction.getTransactionReference())))));
     assertThat("Validation errors should contain description.",
         validationResult.getValidationErrors(),
-        hasItem(hasProperty("errorDescription", is(ProjectConstants.INVALID_MUTATION))));
+        hasItem(hasProperty("errorDescription", is(ValidationConstants.INVALID_MUTATION))));
 
   }
 
@@ -125,7 +125,7 @@ public class TransactionValidatorTest {
         hasItem(hasProperty("errorKey", is(Long.toString(transaction.getTransactionReference())))));
     assertThat("Validation errors should contain description.",
         validationResult.getValidationErrors(), hasItem(
-            hasProperty("errorDescription", is(ProjectConstants.INVALID_TRANSACTION_REFERENCE))));
+            hasProperty("errorDescription", is(ValidationConstants.INVALID_TRANSACTION_REFERENCE))));
 
   }
 
@@ -140,7 +140,7 @@ public class TransactionValidatorTest {
         hasItem(hasProperty("errorKey", is(Long.toString(transaction.getTransactionReference())))));
     assertThat("Validation errors should contain description.",
         validationResult.getValidationErrors(),
-        hasItem(hasProperty("errorDescription", is(ProjectConstants.IBAN_VALIDATION_FAILED))));
+        hasItem(hasProperty("errorDescription", is(ValidationConstants.IBAN_VALIDATION_FAILED))));
 
   }
 
@@ -155,7 +155,7 @@ public class TransactionValidatorTest {
         hasItem(hasProperty("errorKey", is(Long.toString(transaction.getTransactionReference())))));
     assertThat("Validation errors should contain description.",
         validationResult.getValidationErrors(), hasItem(
-            hasProperty("errorDescription", is(ProjectConstants.END_BALANCE_VALIDATION_FAILED))));
+            hasProperty("errorDescription", is(ValidationConstants.END_BALANCE_VALIDATION_FAILED))));
 
   }
 }

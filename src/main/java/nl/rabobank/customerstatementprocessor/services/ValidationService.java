@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import nl.rabobank.customerstatementprocessor.model.TransactionRecords;
 import nl.rabobank.customerstatementprocessor.parsers.ParserResult;
-import nl.rabobank.customerstatementprocessor.properties.ProjectProperties;
-import nl.rabobank.customerstatementprocessor.properties.ProjectProperties.Validation;
+import nl.rabobank.customerstatementprocessor.properties.SecurityProperties;
+import nl.rabobank.customerstatementprocessor.properties.SecurityProperties.Validation;
 import nl.rabobank.customerstatementprocessor.validators.TransactionRecordsValidator;
 import nl.rabobank.customerstatementprocessor.validators.ValidationError;
 import nl.rabobank.customerstatementprocessor.validators.ValidationResult;
@@ -22,7 +22,7 @@ public class ValidationService {
 
   @Autowired
   public ValidationService(final TransactionRecordsValidator validator,
-      final ProjectProperties projectProperties) {
+      final SecurityProperties projectProperties) {
     this.validator = validator;
     this.validationProperties = projectProperties.getValidation();
   }
@@ -33,7 +33,7 @@ public class ValidationService {
    * @param parserResult parsed result from the file content and mapped to the transaction Records.
    * @return validation result.
    */
-  public ValidationResult validate(final ParserResult<TransactionRecords> parserResult) {
+  public ValidationResult validate(final ParserResult<TransactionRecords> parserResult){
 
     // Validates the result.
     ValidationResult validationResult =

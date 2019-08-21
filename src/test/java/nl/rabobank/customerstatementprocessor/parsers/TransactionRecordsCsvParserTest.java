@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import java.io.IOException;
+import java.io.InputStream;
 import org.junit.Before;
 import org.junit.Test;
 import nl.rabobank.customerstatementprocessor.factories.TestObjectFactory;
@@ -20,9 +21,9 @@ public class TransactionRecordsCsvParserTest {
   }
 
   @Test
-  public void whenTransactionFileIsValidThenParserResultShouldHaveNoErrors() throws IOException {
+  public void whenTransactionFileIsValidThenParserResultShouldHaveNoErrors() throws Exception {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getValidCsvFileContent();
+    InputStream fileContent = TestObjectFactory.getValidCsvFileContent();
 
     ParserResult<TransactionRecords> parserResult = this.parser.parse(fileContent);
 
@@ -33,9 +34,9 @@ public class TransactionRecordsCsvParserTest {
 
   @Test
   public void whenTransactionFileHasEmptyRecordsThenParserResultShouldHaveNoErrors()
-      throws IOException {
+      throws Exception {
     // Given all fields are valid
-    String fileContent = TestObjectFactory.getEmptyCsvFileContent();
+    InputStream fileContent = TestObjectFactory.getEmptyCsvFileContent();
 
     ParserResult<TransactionRecords> parserResult = this.parser.parse(fileContent);
 
